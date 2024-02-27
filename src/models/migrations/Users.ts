@@ -14,7 +14,12 @@ export class Users1708948450323 implements MigrationInterface {
             generationStrategy: "increment",
           },
           {
-            name: "name",
+            name: "first_name",
+            type: "varchar",
+            length: "50",
+            isNullable: false,
+          },          {
+            name: "last_name",
             type: "varchar",
             length: "50",
             isNullable: false,
@@ -30,13 +35,6 @@ export class Users1708948450323 implements MigrationInterface {
             name: "password",
             type: "varchar",
             length: "255",
-            isNullable: false,
-          },
-          {
-            name: "created_at",
-            type: "timestamp",
-            default: "now()",
-            onUpdate: "now()",
             isNullable: false,
           },
           {

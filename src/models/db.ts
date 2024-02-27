@@ -3,7 +3,8 @@ import "dotenv/config"
 import { DataSource } from "typeorm"
 import { Roles1708952337364 } from "./migrations/Roles"
 import { Users1708948450323 } from "./migrations/Users"
-
+import { Services1709024097884 } from "./migrations/Services"
+import { Appointments1709024653887 } from "./migrations/Appointmens"
 
 //aqui van las tablas, en migrations, para poderlas usar posteriormente
 export const AppDataSource = new DataSource({
@@ -16,7 +17,9 @@ export const AppDataSource = new DataSource({
   entities: [],
   migrations: [
     Roles1708952337364,
-    Users1708948450323
+    Users1708948450323,
+    Services1709024097884,
+    Appointments1709024653887,
   ],
   synchronize: false,
   logging: false,
