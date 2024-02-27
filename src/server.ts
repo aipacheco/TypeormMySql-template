@@ -2,7 +2,7 @@ import express, { Application } from "express"
 import dotenv from "dotenv"
 dotenv.config()
 import { AppDataSource } from "./models/db"
-import  {createRole } from "./domain/roles/controller"
+import  {createRole } from "./domain/roles/router"
 
 export const app: Application = express()
 
