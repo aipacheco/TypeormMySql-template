@@ -4,9 +4,11 @@ import {
   Entity,
   JoinColumn,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm"
 import { Roles } from "./Roles"
+import { Appointments } from "./Appointments"
 
 @Entity("users")
 export class Users extends BaseEntity {
@@ -25,9 +27,12 @@ export class Users extends BaseEntity {
   @Column({ name: "update_at" })
   updatedAt!: Date
   @Column({ name: "is_active" })
-  isActive!: boolean 
+  isActive!: boolean
 
   @ManyToMany(() => Roles, (role) => role.users)
   @JoinColumn({ name: "role_id" })
   role!: Roles
+
+  @OneToMany(() => Appointments, (appointment) => appointment.user)
+  appointments!: Appointments[]
 }
