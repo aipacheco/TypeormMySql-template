@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { Roles } from "../../models/Roles"
+import * as Repository from "./repository"
 
 export const createRole = async (req: Request, res: Response) => {
   // recuperar la info
@@ -13,14 +14,16 @@ export const createRole = async (req: Request, res: Response) => {
     })
   }
 
-  const newRole = await Roles.create({
-    name: name,
-  }).save()
-
-  
-  res.status(201).json({
-    succes: true,
-    message: "Role created",
-    data: newRole,
-  })
+  try {
+    const newRole = await Repository.createRole(name, res)
+    return res.status(201).json({
+      success: true,
+      message: "Role created",
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while creating the role",
+    })
+  }
 }
