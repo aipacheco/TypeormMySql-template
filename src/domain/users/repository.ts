@@ -24,3 +24,9 @@ export const createUser = async (user: any) => {
     return findEmail
   }
 }
+
+export const getSingleUser = async (userId: number) => {
+  const user = await Users.findOneBy({ id: userId })
+  //lo retornamos como esté, se va a encargar router de dar la respuesta
+  return user
+}

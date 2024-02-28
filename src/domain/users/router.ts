@@ -38,3 +38,31 @@ export const createUser = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const getSingleUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id
+//se lo pasamos a controller para pasarlo de ahí a repository
+    const singleUser = await Controller.getSingleUser(parseInt(userId))
+   //si ha venido como null (porque no lo encuentra repository)
+    if (!singleUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      })
+      //si viene el usuario relleno
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: `User ID: ${userId}`,
+        data: singleUser,
+      })
+    }
+    //manejo de errores del servidor
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "server error",
+    })
+  }
+}
