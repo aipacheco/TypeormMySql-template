@@ -1,18 +1,26 @@
 import { Users } from "../../models/Users"
 
-export const createUser = async (user:any) => {
+export const getUsers = async () => {
+  const users = await Users.find({
+    select: {
+      id: true,
+      first_name: true,
+      last_name: true,
+      email: true,
+    },
+  })
+  return users
+}
 
-//   console.log("en repository", user)
-
+export const createUser = async (user: any) => {
   const email: string = user.email
   const findEmail = await Users.findOneBy({ email: email })
-  
- if (!findEmail) {
-  const newUser = await Users.create(user).save()
 
-  console.log("newuser en el repository", newUser)
-  return undefined
-    } else {
-      return findEmail
-    }
+  //si no existe, lo crea y no retorna nada o undefined para mandar el response en controller
+  if (!findEmail) {
+    const newUser = await Users.create(user).save()
+    return undefined
+  } else {
+    return findEmail
+  }
 }

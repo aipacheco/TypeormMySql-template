@@ -3,7 +3,6 @@ import * as Controller from "./controller"
 
 //se recibe request desde el front y se le devuelve una response que va a venir desde controller
 export const createRole = async (req: Request, res: Response) => {
-  console.log(req.body)
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
   if (req.body && Object.keys(req.body).length !== 0) {
     try {

@@ -2,17 +2,16 @@ import { Request, Response } from "express"
 import * as Repository from "./repository"
 
 export const createRole = async (req: Request, res: Response) => {
-  // console.log("en controller", req.body)
 
   //se accede al campo del json name
   const name: string = req.body.name
 
   //validaciones
-  if (name.length > 50) {
+  if (name.length > 10) {
     //se rellena la response dependiendo del error
     return res.status(400).json({
       success: false,
-      message: "Role name must be under 50 characters",
+      message: "Role name must be under 10 characters",
     })
   }
 
@@ -27,7 +26,7 @@ export const createRole = async (req: Request, res: Response) => {
   try {
     const result = await Repository.createRole(name)
 
-    //si llega vacío es que se ha creado en repository
+    //si llega vacío es que se ha creado en repository, lo traemos para devolver una response
     if (!result) {
       return res.status(201).json({
         success: true,

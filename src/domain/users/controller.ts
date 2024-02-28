@@ -2,8 +2,12 @@ import { Request, Response } from "express"
 import * as Repository from "./repository"
 import bcrypt from "bcrypt"
 
-export const createUser = async (req: Request, res: Response) => {
+export const getUsers = async () => {
+  let resultado = await Repository.getUsers()
+  return resultado
+}
 
+export const createUser = async (req: Request, res: Response) => {
   const firstName = req.body.first_name
   const lastName = req.body.last_name
   const password = req.body.password
@@ -45,7 +49,7 @@ export const createUser = async (req: Request, res: Response) => {
   try {
     const result = await Repository.createUser(NewUser)
 
-    //si llega vacío es que se ha creado en repository
+    //si llega vacío es que se ha creado en repository, lo traemos para mandar el response
     if (!result) {
       return res.status(201).json({
         success: true,

@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import { AppDataSource } from "./models/db"
 import { createRole } from "./domain/roles/router"
-import { createUser } from "./domain/users/router"
+import { createUser, getUsers } from "./domain/users/router"
 
 export const app: Application = express()
 
@@ -16,8 +16,11 @@ app.get("/hello", (req, res) => {
 const PORT = process.env.PORT || 4001
 
 app.post("/roles", createRole)
+
 //rutas de users
 app.post("/register", createUser)
+app.get("/user", getUsers)
+
 
 AppDataSource.initialize()
   .then(() => {
