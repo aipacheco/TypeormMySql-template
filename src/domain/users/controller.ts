@@ -1,10 +1,13 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
+import bcrypt from "bcrypt"
 
 export const createUser = async (req: Request, res: Response) => {
-  console.log("en controller", req.body)
-  const email = req.body.email
+
+  const firstName = req.body.first_name
+  const lastName = req.body.last_name
   const password = req.body.password
+  const email = req.body.email
 
   //validaciones
   if (password.length < 8 || password.length > 15) {
@@ -25,6 +28,43 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(400).json({
       success: false,
       message: "format email invalid",
+    })
+  }
+
+  //encriptación de password
+  const passEncript: string = bcrypt.hashSync(password, 12)
+
+  const NewUser = {
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    password: passEncript,
+    role_id: 1,
+  }
+
+  try {
+    const result = await Repository.createUser(NewUser)
+
+    //si llega vacío es que se ha creado en repository
+    if (!result) {
+      return res.status(201).json({
+        success: true,
+        message: "User created",
+      })
+
+      //si se recibe un obj de tipo User, es que ya existía el registro
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "email duplicated in DB",
+      })
+    }
+    //manejo de errores del servidor
+  } catch (error) {
+    console.log("el error en controller", error)
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while creating the user",
     })
   }
 }

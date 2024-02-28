@@ -3,7 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm"
@@ -14,24 +14,23 @@ import { Appointments } from "./Appointments"
 export class Users extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
+
   @Column({ name: "first_name" })
-  firstName!: string
+  first_name!: string
+
   @Column({ name: "last_name" })
-  lastName!: string
+  last_name!: string
+
   @Column({ name: "password" })
   password!: string
+
   @Column({ name: "email" })
   email!: string
-  @Column({ name: "created_at" })
-  createdAt!: Date
-  @Column({ name: "update_at" })
-  updatedAt!: Date
-  @Column({ name: "is_active" })
-  isActive!: boolean
 
-  @ManyToMany(() => Roles, (role) => role.users)
-  @JoinColumn({ name: "role_id" })
-  role!: Roles
+
+  @ManyToOne(() => Roles, (role) => role.users)
+  @JoinColumn({ name: 'role_id' })
+  role_id!: Roles;
 
   @OneToMany(() => Appointments, (appointment) => appointment.user)
   appointments!: Appointments[]

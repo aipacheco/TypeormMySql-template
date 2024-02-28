@@ -26,13 +26,14 @@ export const createRole = async (req: Request, res: Response) => {
   //y devolverá una respuesta según si ha ido bien o no
   try {
     const result = await Repository.createRole(name)
-    //si llega vacío es que se ha creado en repository
 
+    //si llega vacío es que se ha creado en repository
     if (!result) {
       return res.status(201).json({
         success: true,
         message: "Role created",
       })
+
       //si se recibe un obj de tipo Roles, es que ya existía el registro
     } else {
       return res.status(400).json({
@@ -40,6 +41,7 @@ export const createRole = async (req: Request, res: Response) => {
         message: "Role existing, introduce new one",
       })
     }
+    
     //manejo de errores del servidor
   } catch (error) {
     return res.status(500).json({

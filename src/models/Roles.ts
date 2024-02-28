@@ -10,9 +10,10 @@ import { Users } from "../models/Users"
 export class Roles extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
+  
   @Column({ name: "name" })
   name!: string
 
-  @OneToMany(() => Users, (user) => user.role)
-  users!: Users[]
+  @OneToMany(() => Users, (user) => user.role_id)
+  users!: Users[];
 }
