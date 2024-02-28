@@ -41,14 +41,16 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getSingleUser = async (req: Request, res: Response) => {
   try {
+    //le paso todo el req, lo trataremos en controller
     const singleUser = await Controller.getSingleUser(req, res)
-    //manejo de errores del servidor
+   //si ha encontrado el user
     return res.status(200).json({
       success: true,
       message: `User ID: ${req.params.id}`,
       data: singleUser,
     })
   } catch (error) {
+     //manejo de errores del servidor
     res.status(500).json({
       success: false,
       message: "server error",
