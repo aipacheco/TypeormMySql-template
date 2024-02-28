@@ -73,13 +73,16 @@ export const createUser = async (req: Request, res: Response) => {
   }
 }
 
-export const getSingleUser = async (userId: number) => {
-  try {
-    const user = await Repository.getSingleUser(userId)
-    //en este caso lo vamos a pasar a router aunque esté vacío para que router de la respuesta
-    //porque no le puedo pasar como params el res
+export const getSingleUser = async (req: Request, res: Response) => {
+  const userId = req.params.id
+  const user = await Repository.getSingleUser(parseInt(userId))
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User not found",
+    })
+    //si viene el usuario relleno
+  } else {
     return user
-  } catch (error) {
-    throw error
   }
 }
