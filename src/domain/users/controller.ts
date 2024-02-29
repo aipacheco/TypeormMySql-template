@@ -1,6 +1,9 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
 import bcrypt from "bcrypt"
+import Jwt from "jsonwebtoken"
+import { userLoginI } from "./router"
+
 
 export const getUsers = async () => {
   let resultado = await Repository.getUsers()
@@ -88,4 +91,50 @@ export const getSingleUser = async (req: Request, res: Response) => {
   } else {
     return user
   }
+}
+
+export const login = async (req: Request, res: Response) => {
+  const email = req.body.email
+  const password = req.body.password
+
+  // Primero, verifica si el correo electrónico y la contraseña se proporcionaron
+  if (!email || !password) {
+    return {
+      success: false,
+      message: "Email and password required",
+    }
+  }
+
+  // Luego, intenta encontrar al usuario por correo electrónico
+  const userLogged = await Repository.findByEmail(email)
+
+  // Ahora verifica si el usuario existe
+  if (!userLogged) {
+    return res.status(404).json({
+      success: false,
+      message: "User not found",
+    })
+  }
+
+  // Si el usuario existe, verifica si la contraseña es válida
+  const isValidPassword = bcrypt.compareSync(password, userLogged.password)
+  if (!isValidPassword) {
+  res.status(401).json({
+      success: false,
+      message: "Invalid password",
+    })
+  }
+  const token = Jwt.sign(
+    {
+      userId: userLogged.id,
+      roleId: userLogged.role_id.id
+    },
+   process.env.JWT_SECRET as string,
+    {
+      expiresIn: "2h"
+    }
+  )
+  // Devolver datos del usuario y el token
+  return { user: userLogged, token }
+  // Si llegamos aquí, el usuario existe y la contraseña es válida
 }

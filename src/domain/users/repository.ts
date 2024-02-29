@@ -30,3 +30,22 @@ export const getSingleUser = async (userId: number) => {
   //lo retornamos como esté, se va a encargar controller de dar la respuesta
   return user
 }
+
+export const findByEmail = async (email: string) => {
+  const user = await Users.findOne({
+    where: {
+      email: email,
+    },
+    relations: { role_id: true },
+    select: {
+      id: true,
+      password: true,
+      email: true,
+      role_id: {
+        id: true,
+        name: true,
+      },
+    },
+  })
+  return user
+}

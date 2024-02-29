@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import * as Controller from "./controller"
+import { Users } from "../../models/Users"
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -43,14 +44,33 @@ export const getSingleUser = async (req: Request, res: Response) => {
   try {
     //le paso todo el req, lo trataremos en controller
     const singleUser = await Controller.getSingleUser(req, res)
-   //si ha encontrado el user
+    //si ha encontrado el user
     return res.status(200).json({
       success: true,
       message: `User ID: ${req.params.id}`,
       data: singleUser,
     })
   } catch (error) {
-     //manejo de errores del servidor
+    //manejo de errores del servidor
+    res.status(500).json({
+      success: false,
+      message: "server error",
+    })
+  }
+}
+
+export interface userLoginI {
+  user: Users,
+  token: string
+}
+
+export const login = async (req: Request, res: Response) => {
+  try {
+
+    const userLogin = await Controller.login(req, res)
+    console.log("el user en el router" , userLogin.token)
+    res.status(200).json(userLogin)
+  } catch (error) {
     res.status(500).json({
       success: false,
       message: "server error",

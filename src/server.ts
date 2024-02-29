@@ -3,7 +3,9 @@ import dotenv from "dotenv"
 dotenv.config()
 import { AppDataSource } from "./models/db"
 import { createRole } from "./domain/roles/router"
-import { createUser, getSingleUser, getUsers } from "./domain/users/router"
+import { createUser, getSingleUser, getUsers, login } from "./domain/users/router"
+import { auth } from "./middlewheres/auth"
+import { isSuperAdmin } from "./middlewheres/isSuperAdmin"
 
 export const app: Application = express()
 
@@ -19,9 +21,9 @@ app.post("/roles", createRole)
 
 //rutas de users
 app.post("/register", createUser)
-app.get("/user", getUsers)
+app.get("/user",auth, isSuperAdmin, getUsers)
 app.get("/user/:id", getSingleUser)
-
+app.post("/login", login)
 
 AppDataSource.initialize()
   .then(() => {
