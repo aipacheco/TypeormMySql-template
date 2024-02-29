@@ -28,5 +28,6 @@ export const register = async (user: any) => {
         },
       },
     })
+    console.log(user)
     return user
   }

@@ -104,6 +104,7 @@ export const login = async (req: Request, res: Response) => {
   // si el usuario existe, verifica si la contraseña es válida
   const isValidPassword = bcrypt.compareSync(password, userLogged.password)
 
+
   //si la contraseña no es válida
   if (!isValidPassword) {
     res.status(401).json({
@@ -116,6 +117,7 @@ export const login = async (req: Request, res: Response) => {
     {
       userId: userLogged.id,
       roleId: userLogged.role_id.id,
+      roleName: userLogged.role_id.name
     },
     process.env.JWT_SECRET as string,
     {
