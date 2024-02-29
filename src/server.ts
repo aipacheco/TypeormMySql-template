@@ -4,9 +4,8 @@ dotenv.config()
 import { AppDataSource } from "./models/db"
 import roleRouter from "./domain/roles/router"
 import authRouter from "./domain/auth/router"
-// import { createUser, getSingleUser, getUsers, login } from "./domain/users/router"
-import { auth } from "./middlewheres/auth"
-import { isSuperAdmin } from "./middlewheres/isSuperAdmin"
+import userRouter from "./domain/users/router"
+
 
 export const app: Application = express()
 
@@ -22,15 +21,11 @@ const PORT = process.env.PORT || 4001
 app.use('/api', roleRouter);
 
 //rutas de auth
-
 app.use('/api', authRouter);
 
+//rutas de user
+app.use('/api', userRouter);
 
-//rutas de users
-// app.post("/register", createUser)
-// app.get("/user",auth, isSuperAdmin, getUsers)
-// app.get("/user/:id", getSingleUser)
-// app.post("/login", login)
 
 AppDataSource.initialize()
   .then(() => {
