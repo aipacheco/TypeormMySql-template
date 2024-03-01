@@ -10,7 +10,7 @@
     "migrations": "typeorm-ts-node-commonjs migration:run -d ./src/models/db.ts",
     "revert-migrations": "typeorm-ts-node-commonjs migration:revert -d ./src/models/db.ts",
     "candela": "typeorm entity:create ./src/models/",
-    "seeder":"ts-node ./src/models/seeders/seeders.ts"
+    "seeder": "ts-node ./src/models/seeders/seeders.ts"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.20",

@@ -18,4 +18,5 @@ userRouter.get("/users/profile", auth, Controller.userProfile)
 //   isSuperAdmin,
 //   Controller.getUsers
 // )
+
 export default userRouter

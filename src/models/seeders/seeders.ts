@@ -1,7 +1,21 @@
+import { faker } from "@faker-js/faker"
 import { Roles } from "../Roles"
+import { Users } from "../Users"
 import { AppDataSource } from "../db"
 
-const roleSeedDatabase = async () => {
+// Función para generar usuarios falsos con Faker
+const generateFakeUser =  () => {
+  const user = new Users()
+  user.first_name = faker.person.firstName()
+  user.last_name = faker.person.lastName()
+  user.email = faker.internet.email()
+  user.password = "$12$LTD3Zjs1knPG2shso3M98.SOLm9H/YhCri3PZXDvZsR43Tw9hwVue"
+  user.roleId = 1
+  return user
+}
+
+
+const seedDatabase = async () => {
   try {
     await AppDataSource.initialize()
 
@@ -17,12 +31,17 @@ const roleSeedDatabase = async () => {
     roleSuperAdmin.name = "super_admin"
     await role.save()
 
-    console.log("TODO OK EN SEEDER")
+    const fakeUsers = Array.from({ length: 10 }, generateFakeUser)
+    await Users.save(fakeUsers)
+    await AppDataSource.destroy()
 
+    console.log("TODO OK EN SEEDER")
   } catch (error) {
     console.log(error)
-  } finally {
+  }  finally {
     await AppDataSource.destroy()
   }
 }
-roleSeedDatabase()
+
+
+seedDatabase()

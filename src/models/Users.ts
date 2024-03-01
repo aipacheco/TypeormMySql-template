@@ -27,6 +27,8 @@ export class Users extends BaseEntity {
   @Column({ name: "email" })
   email!: string
 
+  @Column({ name: "role_id" })
+  roleId!: number;
 
   @ManyToOne(() => Roles, (role) => role.users)
   @JoinColumn({ name: 'role_id' })
