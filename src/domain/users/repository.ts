@@ -1,6 +1,5 @@
 import { Request } from "express"
 import { Users } from "../../models/Users"
-import { TokenData } from "../../types/index"
 import bcrypt from "bcrypt"
 
 export const getUsers = async () => {
