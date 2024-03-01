@@ -9,7 +9,8 @@
     "tirale": "typeorm migration:create ./src/models/migrations/",
     "migrations": "typeorm-ts-node-commonjs migration:run -d ./src/models/db.ts",
     "revert-migrations": "typeorm-ts-node-commonjs migration:revert -d ./src/models/db.ts",
-    "candela": "typeorm entity:create ./src/models/"
+    "candela": "typeorm entity:create ./src/models/",
+    "seeder":"ts-node ./src/models/seeders/seeders.ts"
   },
   "author": "",
   "license": "ISC",
