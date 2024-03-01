@@ -18,19 +18,29 @@ export const getUsers = async (req: Request, res: Response) => {
   }
 }
 
-export const getSingleUser = async (req: Request, res: Response) => {
-  //se accede al id a traves de req.params.id
-  const userId = req.params.id
-  //se le pasa parseado
-  const user = await Repository.getSingleUser(parseInt(userId))
-  //si lo que devuelve repository es null
-  if (!user) {
-    return res.status(404).json({
-      success: false,
-      message: "User not found",
+export const updateProfile = async (req: Request, res: Response) => {
+  //traemos el body
+  const name = req.body.name
+  
+
+  //validaciones
+
+  //AQUI LAS VALIDACIONES
+
+  //si pasa las validaciones
+  try {
+    let resultado = await Repository.updateProfile(name) //PROVISIONAL
+
+    return res.status(201).json({
+      success: true,
+      message: "Profile updated",
+      data: resultado,
     })
-    //si viene el usuario relleno
-  } else {
-    return user
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      success: false,
+      message: "Error interno del servidor",
+    })
   }
 }

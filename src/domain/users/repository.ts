@@ -1,4 +1,6 @@
+import { Request } from "express"
 import { Users } from "../../models/Users"
+import { TokenData } from "../../types/index"
 
 export const getUsers = async () => {
   const users = await Users.find({
@@ -12,11 +14,17 @@ export const getUsers = async () => {
   return users
 }
 
+export const updateProfile = async (req: Request) => {
+  // const user = await Users.findOneBy({ id: req.body.id })
+  // if (user) {
+    const user = Users.update({
+      id: req.tokenData.userId,
+    },
+    {
+      first_name: req.body.name
+    }
+    )
+    return user
+  }
 
-export const getSingleUser = async (userId: number) => {
-  const user = await Users.findOneBy({ id: userId })
-  //lo retornamos como esté, se va a encargar controller de dar la respuesta
-  return user
-}
-
-
+// }
