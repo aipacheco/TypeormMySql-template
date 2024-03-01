@@ -4,12 +4,13 @@ import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken"
 
 export const register = async (req: Request, res: Response) => {
+
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
   if (req.body && Object.keys(req.body).length !== 0) {
-    const firstName = req.body.first_name
-    const lastName = req.body.last_name
-    const password = req.body.password
-    const email = req.body.email
+    const firstName:string = req.body.first_name
+    const lastName:string = req.body.last_name
+    const password:string = req.body.password
+    const email:string = req.body.email
 
     //validaciones
     if (password.length < 8 || password.length > 15) {

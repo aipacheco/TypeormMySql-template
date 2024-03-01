@@ -6,9 +6,14 @@ import { auth } from "../../middlewheres/auth"
 const userRouter = express.Router()
 
 // endpoints de usuario
- userRouter.get("/users",auth, isSuperAdmin, Controller.getUsers)
- //esta routa debe ir primero para que no coja la ruta dinámica de :id
- userRouter.put("/users/profile", auth, Controller.updateProfile)
+userRouter.get("/users", auth, isSuperAdmin, Controller.getUsers)
 
+userRouter.put("/users/profile", auth, Controller.updateProfile)
+//esta routa debe ir primero para que no coja la ruta dinámica de :id
+// userRouter.get(
+//   "/users?email=ejemplo@ejemplo.com",
+//   auth,
+//   isSuperAdmin,
+//   Controller.getUsers
+// )
 export default userRouter
-
