@@ -21,7 +21,7 @@ export const getUsers = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
   if (req.body && Object.keys(req.body).length !== 0) {
-    
+
     const first_name: string = req.body.first_name
     const last_name: string = req.body.last_name
     const password: string = req.body.password
@@ -119,3 +119,21 @@ export const updateProfile = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const userProfile = async(req: Request, res: Response)=>{
+  try {
+    let resultado = await Repository.userProfile(req)
+
+    return res.status(200).json({
+      success: true,
+      message: "Your profile",
+      data: resultado,
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error interno del servidor",
+    })
+  }
+}
+

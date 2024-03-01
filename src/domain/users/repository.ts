@@ -32,3 +32,12 @@ export const updateProfile = async (req: Request) => {
     return userUpdate
   }
 }
+
+export const userProfile = async (req: Request) => {
+  const user = await Users.findOne({
+    where: { id: req.tokenData.userId },
+    select: ["id", "first_name", "last_name", "email"],
+  })
+  // console.log(user)
+  return user
+}
