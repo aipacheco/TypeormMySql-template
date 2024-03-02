@@ -41,3 +41,18 @@ export const userProfile = async (req: Request) => {
   // console.log(user)
   return user
 }
+
+export const getUserByEmail = async (email: string) => {
+  const user = await Users.find({
+    where: {
+      email: email,
+    },
+    select: {
+      id: true,
+      first_name: true,
+      last_name: true,
+      email: true,
+    },
+  })
+  return user
+}
