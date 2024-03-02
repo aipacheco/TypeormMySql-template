@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { FindOperator } from "typeorm"
 
 export const getUsers = async (req: Request, res: Response) => {
   const email = req.query.email as string
