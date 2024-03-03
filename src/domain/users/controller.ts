@@ -53,15 +53,15 @@ export const getUsers = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
   if (req.body && Object.keys(req.body).length !== 0) {
-    const first_name: string = req.body.first_name
-    const last_name: string = req.body.last_name
+    const firstName: string = req.body.first_name
+    const lastName: string = req.body.last_name
     const password: string = req.body.password
 
     //como son campos que pueden venir o no, vamos a comprobar si vienen
-    if (first_name) {
+    if (firstName) {
       //pasa por la función de validaciones de helpers, para no repetir código
-      const validName = validator(first_name, "First Name")
-      console.log(validName)
+      const validName = validator(firstName, "First Name")
+      // console.log(validName)
       if (validName) {
         return res.status(400).json({
           success: false,
@@ -71,8 +71,8 @@ export const updateProfile = async (req: Request, res: Response) => {
       //se sale la función cuando encuentra un error y no sigue ejecutando validaciones
     }
 
-    if (last_name) {
-      const validLastName = validator(last_name, "Last Name")
+    if (lastName) {
+      const validLastName = validator(lastName, "Last Name")
       if (validLastName) {
         return res.status(400).json({
           success: false,

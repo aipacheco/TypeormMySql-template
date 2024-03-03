@@ -1,4 +1,3 @@
-
 //la función recibe dos params, el valor que le pasemos y el campo para usarlo en el mensaje
 export const validator = (value: string, field: string) => {
   if (typeof value !== "string") {
@@ -18,5 +17,16 @@ export const validator = (value: string, field: string) => {
 export const isValidPassword = (password: string) => {
   if (password.length < 8 || password.length > 15) {
     return "Password must be min 8 or max 15 chars."
+  }
+}
+
+export const isValidEmail = (email: string) => {
+  if (email.length < 0) {
+    return "You have to provide an email."
+  }
+  //regex de email
+  const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+  if (!validEmail.test(email)) {
+    return "format email invalid"
   }
 }

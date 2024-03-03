@@ -2,35 +2,47 @@ import { Request, Response } from "express"
 import * as Repository from "./repository"
 import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken"
+import { isValidEmail, isValidPassword, validator } from "../../Helpers/helpers"
 
 export const register = async (req: Request, res: Response) => {
-
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
   if (req.body && Object.keys(req.body).length !== 0) {
-    const firstName:string = req.body.first_name
-    const lastName:string = req.body.last_name
-    const password:string = req.body.password
-    const email:string = req.body.email
+    const firstName: string = req.body.first_name
+    const lastName: string = req.body.last_name
+    const password: string = req.body.password
+    const email: string = req.body.email
 
     //validaciones
-    if (password.length < 8 || password.length > 15) {
+
+    const validName = validator(firstName, "First Name")
+    if (validName) {
       return res.status(400).json({
         success: false,
-        message: "Password must be min 8 or max 15 chars.",
+        message: validName,
       })
     }
-    if (email.length < 0) {
+
+    const validLastName = validator(lastName, "Last Name")
+    if (validLastName) {
       return res.status(400).json({
         success: false,
-        message: "You have to provide an email.",
+        message: validLastName,
       })
     }
-    //regex de email
-    const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
-    if (!validEmail.test(email)) {
+
+    const validPassword = isValidPassword(password)
+    if (validPassword) {
       return res.status(400).json({
         success: false,
-        message: "format email invalid",
+        message: validPassword,
+      })
+    }
+
+    const validEmail = isValidEmail(email)
+    if (validEmail) {
+      return res.status(400).json({
+        success: false,
+        message: validEmail,
       })
     }
 
@@ -105,7 +117,6 @@ export const login = async (req: Request, res: Response) => {
   // si el usuario existe, verifica si la contraseña es válida
   const isValidPassword = bcrypt.compareSync(password, userLogged.password)
 
-
   //si la contraseña no es válida
   if (!isValidPassword) {
     res.status(401).json({
@@ -118,7 +129,7 @@ export const login = async (req: Request, res: Response) => {
     {
       userId: userLogged.id,
       roleId: userLogged.role_id.id,
-      roleName: userLogged.role_id.name
+      roleName: userLogged.role_id.name,
     },
     process.env.JWT_SECRET as string,
     {
