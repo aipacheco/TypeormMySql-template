@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
+import { isValidPassword, validator } from "../../Helpers/helpers"
 
 export const getUsers = async (req: Request, res: Response) => {
   const email = req.query.email as string
@@ -56,91 +57,56 @@ export const updateProfile = async (req: Request, res: Response) => {
     const last_name: string = req.body.last_name
     const password: string = req.body.password
 
-    //flag booleana para controlar que pase las validaciones
-    let validations: boolean = true
-
     //como son campos que pueden venir o no, vamos a comprobar si vienen
     if (first_name) {
-      //si no es un string
-      if (typeof first_name !== "string") {
-        validations = false
+      //pasa por la función de validaciones de helpers, para no repetir código
+      const validName = validator(first_name, "First Name")
+      console.log(validName)
+      if (validName) {
         return res.status(400).json({
           success: false,
-          message: "name must be a valid character (a to z).",
+          message: validName,
         })
       }
-      //si es menor de 3 letras
-      if (first_name.length < 3) {
-        validations = false
-        return res.status(400).json({
-          success: false,
-          message: "name must be at least 3 characters long.",
-        })
-      }
-      //si es mayor de 50 letras
-      if (first_name.length > 50) {
-        validations = false
-        return res.status(400).json({
-          success: false,
-          message: "name must be less than 50 characters.",
-        })
-      }
+      //se sale la función cuando encuentra un error y no sigue ejecutando validaciones
     }
 
     if (last_name) {
-      if (typeof last_name !== "string") {
-        validations = false
+      const validLastName = validator(last_name, "Last Name")
+      if (validLastName) {
         return res.status(400).json({
           success: false,
-          message: "last name must be a valid character (a to z).",
-        })
-      }
-      if (last_name.length < 3) {
-        validations = false
-        return res.status(400).json({
-          success: false,
-          message: "last name must be at least 3 characters long.",
-        })
-      }
-
-      if (last_name.length > 50) {
-        validations = false
-        return res.status(400).json({
-          success: false,
-          message: "last name must be less than 50 characters.",
+          message: validLastName,
         })
       }
     }
 
-    //si viene password, ya que cambiarlo también es opcional
+    // //si viene password, ya que cambiarlo también es opcional
     if (password) {
-      //si no cumple con el largo que esperamos
-      if (password.length < 8 || password.length > 15) {
+      const validPassword = isValidPassword(password)
+      if (validPassword) {
         return res.status(400).json({
           success: false,
-          message: "Password must be min 8 or max 15 chars.",
+          message: validPassword,
         })
       }
     }
+    try {
+      //le paso el req a repository para que tenga los datos y el token
+      let resultado = await Repository.updateProfile(req)
 
-    //si pasa las validaciones
-    if (validations) {
-      try {
-        //le paso el req a repository para que tenga los datos y el token
-        let resultado = await Repository.updateProfile(req)
-        if (resultado) {
-          return res.status(201).json({
-            success: true,
-            message: "Profile updated",
-          })
-        }
-      } catch (error) {
-        console.log(error)
-        return res.status(500).json({
-          success: false,
-          message: "Error interno del servidor",
+      if (resultado) {
+        return res.status(201).json({
+          success: true,
+          message: "Profile updated",
         })
       }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({
+        success: false,
+        message: "Error interno del servidor",
+      })
     }
   } else {
     return res.status(500).json({
