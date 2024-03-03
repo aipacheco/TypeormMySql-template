@@ -15,13 +15,13 @@ export class Appointments1709024653887 implements MigrationInterface {
                   generationStrategy: "increment",
                 },
                 {
-                  name: "name",
-                  type: "varchar",
-                  length: "40",
+                  name: "appointment_date",
+                  type: "Date",
                 },
                 {
                     name: "user_id",
                     type: "int",
+                    isNullable: false
                   },
                   {
                     name: "service_id",

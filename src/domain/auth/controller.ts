@@ -6,6 +6,8 @@ import { isValidEmail, isValidPassword, validator } from "../../Helpers/helpers"
 
 export const register = async (req: Request, res: Response) => {
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
+
+
   if (req.body && Object.keys(req.body).length !== 0) {
     const firstName: string = req.body.first_name
     const lastName: string = req.body.last_name
@@ -59,6 +61,8 @@ export const register = async (req: Request, res: Response) => {
 
     try {
       const result = await Repository.register(NewUser)
+
+
 
       //si llega vacío es que se ha creado en repository, lo traemos para mandar el response
       if (!result) {

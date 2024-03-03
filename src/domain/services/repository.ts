@@ -1,4 +1,3 @@
-import { Request } from "express"
 import { Services } from "../../models/Services"
 
 export const getServices = async () => {
@@ -22,4 +21,10 @@ export const createService = async (newService:any) =>{
     } else {
       return findService
     }
+}
+
+export const updateService = () =>{
+
+    
+    
 }

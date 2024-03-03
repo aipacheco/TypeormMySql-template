@@ -13,8 +13,9 @@ import { Users } from "./Users"
 export class Appointments extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
-  @Column({ name: "name" })
-  name!: string
+
+  @Column({ name: "appointment_date", type: "date" })
+  appointment_date!: Date
 
   @ManyToOne(() => Services, (service) => service.appointments)
   @JoinColumn({ name: "serviceId" })
