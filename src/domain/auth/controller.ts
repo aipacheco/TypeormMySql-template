@@ -9,6 +9,7 @@ export const register = async (req: Request, res: Response) => {
 
 
   if (req.body && Object.keys(req.body).length !== 0) {
+
     const firstName: string = req.body.first_name
     const lastName: string = req.body.last_name
     const password: string = req.body.password
@@ -99,6 +100,8 @@ export const login = async (req: Request, res: Response) => {
   const email = req.body.email
   const password = req.body.password
 
+  console.log(password)
+
   // verifica si el correo electrónico y la contraseña se proporcionaron
   if (!email || !password) {
     return {
@@ -123,7 +126,7 @@ export const login = async (req: Request, res: Response) => {
 
   //si la contraseña no es válida
   if (!isValidPassword) {
-    res.status(401).json({
+   return res.status(401).json({
       success: false,
       message: "Invalid password",
     })
