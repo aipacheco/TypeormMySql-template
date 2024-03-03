@@ -5,7 +5,7 @@ import { AppDataSource } from "./models/db"
 import roleRouter from "./domain/roles/router"
 import authRouter from "./domain/auth/router"
 import userRouter from "./domain/users/router"
-
+import serviceRouter from "./domain/services/router"
 
 export const app: Application = express()
 
@@ -18,14 +18,17 @@ app.get("/hello", (req, res) => {
 const PORT = process.env.PORT || 4001
 
 //rutas de roles
-app.use('/api', roleRouter);
+app.use("/api", roleRouter)
 
 //rutas de auth
-app.use('/api', authRouter);
+app.use("/api", authRouter)
 
 //rutas de user
-app.use('/api', userRouter);
+app.use("/api", userRouter)
 
+//rutas de services
+
+app.use("/api", serviceRouter)
 
 AppDataSource.initialize()
   .then(() => {
