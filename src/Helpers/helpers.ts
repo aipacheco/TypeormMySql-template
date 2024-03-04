@@ -44,3 +44,8 @@ export const isValidEmail = (email: string) => {
     return "format email invalid"
   }
 }
+
+//función para comprobar si un array llega lleno o vacío
+export const isArrayEmpty = (array: any[]): boolean => {
+  return Array.isArray(array) && array.length === 0
+}

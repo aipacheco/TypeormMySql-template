@@ -38,7 +38,6 @@ export const userProfile = async (req: Request) => {
     where: { id: req.tokenData.userId },
     select: ["id", "first_name", "last_name", "email"],
   })
-  // console.log(user)
   return user
 }
 
