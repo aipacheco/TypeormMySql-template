@@ -33,15 +33,15 @@ export const createAppointment = async (req: Request, res: Response) => {
     const dataAppointment = req.body.appointment_date
     const serviceID = req.body.service_id
 
-    // Validaciones 
-
-    console.log("Data de la cita:", dataAppointment)
-    console.log("ID del servicio:", serviceID)
+    // Validaciones
 
     // Llamar a la función en el repositorio para crear la cita
     const nuevaCita = await Repository.createAppointment(req)
-
     console.log(nuevaCita, "en controller")
+    return res.status(201).json({
+      success: true,
+      message: nuevaCita,
+    })
   } else {
     // Si se manda un objeto vacío
     res.status(400).json({

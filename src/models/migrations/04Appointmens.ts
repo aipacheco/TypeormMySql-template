@@ -25,6 +25,7 @@ export class Appointments1709024653887 implements MigrationInterface {
           {
             name: "service_id",
             type: "int",
+            isNullable: false,
           },
         ],
 

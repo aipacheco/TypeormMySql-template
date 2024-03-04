@@ -25,25 +25,27 @@ export const getMyAppointments = async (req: Request) => {
 }
 
 export const createAppointment = async (req: Request) => {
-  // const user = await Users.findOneBy({ id: req.tokenData.userId })
-  // const service = await Services.findOneBy({ id: req.body.service_id })
+  try {
+    const user = await Users.findOneBy({ id: req.tokenData.userId })
+    const service = await Services.findOne({
+      where: { id: req.body.service_id },
+    })
+    if (user && service) {
+      //para crear un registro en bbdd de una tabla intermedia no se puede hacer create(X).save() del tirón, hay que hacerlo en 2 pasos
 
-  // console.log("User:", user)
-  // console.log("Service:", service)
+      //PASO 1 Se crea el objeto pasándole los objetos completos de User y Service
+      const newAppointment = Appointments.create({
+        appointment_date: new Date(req.body.appointment_date),
+        user: user,
+        service: service,
+      })
 
-  // if (user && service) {
-    const newAppointment = {
-      appointment_date: req.body.appointment_date,
-      user_id: 13,
-      service_id: 1,
+      //PASO 2 Se realiza el save sobre el objeto newAppointment que se ha creado en el Paso 1
+      const crearCita = await newAppointment.save()
+      return crearCita
     }
-
-    console.log("New appointment:", newAppointment)
-    try {
-      const crearCita = await Appointments.create(newAppointment).save()
-      console.log("en repository", crearCita)
-    } catch (error) {
-      console.log(error)
-    }
+  } catch (error) {
+    console.log(error)
+    return error
   }
-// }
+}
