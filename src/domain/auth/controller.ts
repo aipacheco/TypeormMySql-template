@@ -100,8 +100,6 @@ export const login = async (req: Request, res: Response) => {
   const email = req.body.email
   const password = req.body.password
 
-  console.log(password)
-
   // verifica si el correo electrónico y la contraseña se proporcionaron
   if (!email || !password) {
     return {

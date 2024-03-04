@@ -6,17 +6,12 @@ import { isArrayEmpty, isValidPassword, validator } from "../../Helpers/helpers"
 export const getUsers = async (req: Request, res: Response) => {
   const email = req.query.email as string
 
-  // //función para comprobar si un array llega lleno o vacío
-  // const isArrayEmpty = (array: any[]): boolean => {
-  //   return Array.isArray(array) && array.length === 0
-  // }
-
   if (email) {
     try {
       const search = await Repository.getUserByEmail(email)
       const isEmpty = isArrayEmpty(search)
 
-      if (!search) {
+      if (!isEmpty) {
         return res.status(200).json({
           success: true,
           message: "User by email",

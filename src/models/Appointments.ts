@@ -19,10 +19,10 @@ export class Appointments extends BaseEntity {
   appointment_date!: Date
 
   @ManyToOne(() => Services, (service) => service.appointments)
-  @JoinColumn({ name: "serviceId" })
+  @JoinColumn({ name: "service_id" })
   service!: Services
 
   @ManyToOne(() => Users, (user) => user.appointments)
-  @JoinColumn({ name: "userId" })
+  @JoinColumn({ name: "user_id" })
   user!: Users
 }
