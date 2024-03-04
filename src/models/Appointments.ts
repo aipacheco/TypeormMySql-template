@@ -11,6 +11,7 @@ import { Users } from "./Users"
 
 @Entity("appointments")
 export class Appointments extends BaseEntity {
+
   @PrimaryGeneratedColumn()
   id!: number
 

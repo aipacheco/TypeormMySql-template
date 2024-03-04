@@ -21,7 +21,7 @@ export class Users extends BaseEntity {
   @Column({ name: "last_name" })
   last_name!: string
 
-  @Column({ name: "password" })
+  @Column({ name: "password", select:false})
   password!: string
 
   @Column({ name: "email" })
