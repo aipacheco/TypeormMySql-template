@@ -48,7 +48,7 @@ Este proyecto requería una API funcional conectada a una base de datos con cuat
 
   - REGISTER
 
-            POST http://localhost:4000/api/register
+            POST http://localhost:4000/api/auth/register
 
     body:
 
@@ -63,7 +63,7 @@ Este proyecto requería una API funcional conectada a una base de datos con cuat
 
   - LOGIN
 
-          POST localhost:4000/api/login
+          POST localhost:4000/api/auth/login
 
     body:
 
