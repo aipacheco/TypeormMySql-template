@@ -3,6 +3,7 @@ import { Roles } from "../Roles"
 import { Users } from "../Users"
 import { Services } from "../Services"
 import { AppDataSource } from "../db"
+import bcrypt from "bcrypt"
 
 // Función para generar usuarios falsos con Faker
 const generateFakeUser = () => {
@@ -10,7 +11,7 @@ const generateFakeUser = () => {
   user.first_name = faker.person.firstName()
   user.last_name = faker.person.lastName()
   user.email = faker.internet.email()
-  user.password = "$2b$12$L7wl7Gx1pYosqGDbg8p2YOamY3CULz7SGSG6szrpV4Rcem1xNLl.m"
+  user.password = bcrypt.hashSync("123456789", 12)
   user.roleId = 1
   return user
 }
@@ -19,7 +20,7 @@ const generateFakeAdmin = () => {
   user.first_name = faker.person.firstName()
   user.last_name = faker.person.lastName()
   user.email = "admin@admin.com"
-  user.password = "$2b$12$L7wl7Gx1pYosqGDbg8p2YOamY3CULz7SGSG6szrpV4Rcem1xNLl.m"
+  user.password = bcrypt.hashSync("123456789", 12)
   user.roleId = 2
   return user
 }
@@ -29,7 +30,7 @@ const generateFakeSuperAdmin = () => {
   user.first_name = faker.person.firstName()
   user.last_name = faker.person.lastName()
   user.email = "superdmin@superadmin.com"
-  user.password = "$2b$12$L7wl7Gx1pYosqGDbg8p2YOamY3CULz7SGSG6szrpV4Rcem1xNLl.m"
+  user.password = bcrypt.hashSync("123456789", 12)
   user.roleId = 3
   return user
 }
@@ -109,6 +110,7 @@ const seedDatabase = async () => {
     }
 
     console.log("TODO OK EN SEEDER")
+    
   } catch (error) {
     console.log(error)
   } finally {

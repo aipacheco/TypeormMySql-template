@@ -5,7 +5,6 @@ import { isArrayEmpty } from "../../Helpers/helpers"
 export const getMyAppointments = async (req: Request, res: Response) => {
   try {
     const citas:any = await Repository.getMyAppointments(req)
-    console.log("las citas en controller", citas)
 
     const isCitas = isArrayEmpty(citas)
 
