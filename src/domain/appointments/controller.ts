@@ -4,7 +4,7 @@ import { isArrayEmpty } from "../../Helpers/helpers"
 
 export const getMyAppointments = async (req: Request, res: Response) => {
   try {
-    const citas:any = await Repository.getMyAppointments(req)
+    const citas: any = await Repository.getMyAppointments(req)
 
     const isCitas = isArrayEmpty(citas)
 
@@ -19,5 +19,34 @@ export const getMyAppointments = async (req: Request, res: Response) => {
         message: citas,
       })
     }
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "server error",
+    })
+  }
+}
+
+export const createAppointment = async (req: Request, res: Response) => {
+  // Si hay un cuerpo en la solicitud y no es un objeto vacío
+  if (req.body && Object.keys(req.body).length !== 0) {
+    const dataAppointment = req.body.appointment_date
+    const serviceID = req.body.service_id
+
+    // Validaciones 
+
+    console.log("Data de la cita:", dataAppointment)
+    console.log("ID del servicio:", serviceID)
+
+    // Llamar a la función en el repositorio para crear la cita
+    const nuevaCita = await Repository.createAppointment(req)
+
+    console.log(nuevaCita, "en controller")
+  } else {
+    // Si se manda un objeto vacío
+    res.status(400).json({
+      success: false,
+      message: "No data provided.",
+    })
+  }
 }

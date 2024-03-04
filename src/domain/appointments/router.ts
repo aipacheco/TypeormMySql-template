@@ -7,6 +7,7 @@ const appointmentRouter = express.Router()
 
 // endpoints de citas
 appointmentRouter.get("/appointments", auth, Controller.getMyAppointments)
+appointmentRouter.post("/appointments", auth, Controller.createAppointment)
 
 
 export default appointmentRouter

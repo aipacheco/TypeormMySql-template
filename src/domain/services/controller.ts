@@ -23,11 +23,8 @@ export const createService = async (req: Request, res: Response) =>{
        //si hay body y las keys vienen rellenas (no es un objeto vacío)
   if (req.body && Object.keys(req.body).length !== 0) {
 
-    console.log(req.body)
-
     const serviceName: string = req.body.serviceName
     const description: string = req.body.description
-
 
     //validaciones
     const validServiceName = validator(serviceName, "Service Name")

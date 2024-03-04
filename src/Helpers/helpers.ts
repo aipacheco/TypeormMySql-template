@@ -13,7 +13,7 @@ export const validator = (value: string, field: string) => {
   }
 }
 
-export const isValidLongText = (value: string, field: string) =>{
+export const isValidLongText = (value: string, field: string) => {
   if (typeof value !== "string") {
     return `${field} must be a valid character (a to z).`
   }
@@ -24,7 +24,6 @@ export const isValidLongText = (value: string, field: string) =>{
   if (value.length > 300) {
     return `${field} must be less than 300 characters.`
   }
-
 }
 
 //esta función solo recibe un param porque el mensaje es siempre del password
@@ -49,3 +48,4 @@ export const isValidEmail = (email: string) => {
 export const isArrayEmpty = (array: any[]): boolean => {
   return Array.isArray(array) && array.length === 0
 }
+
