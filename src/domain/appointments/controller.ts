@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isArrayEmpty } from "../../Helpers/helpers"
+import { isArrayEmpty, isNumber } from "../../Helpers/helpers"
 
 export const getMyAppointments = async (req: Request, res: Response) => {
   try {
@@ -33,15 +33,24 @@ export const createAppointment = async (req: Request, res: Response) => {
     const dataAppointment = req.body.appointment_date
     const serviceID = req.body.service_id
 
+    console.log(dataAppointment)
     // Validaciones
-
+  
     // Llamar a la función en el repositorio para crear la cita
+
     const nuevaCita = await Repository.createAppointment(req)
-    console.log(nuevaCita, "en controller")
-    return res.status(201).json({
-      success: true,
-      message: nuevaCita,
-    })
+
+    if (!nuevaCita) {
+      return res.status(400).json({
+        success: false,
+        message: "error al crear la cita",
+      })
+    } else {
+      return res.status(201).json({
+        success: true,
+        message: nuevaCita,
+      })
+    }
   } else {
     // Si se manda un objeto vacío
     res.status(400).json({

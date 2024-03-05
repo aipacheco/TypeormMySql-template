@@ -48,4 +48,3 @@ export const isValidEmail = (email: string) => {
 export const isArrayEmpty = (array: any[]): boolean => {
   return Array.isArray(array) && array.length === 0
 }
-

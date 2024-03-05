@@ -21,7 +21,7 @@ export const getMyAppointments = async (req: Request) => {
       },
     })
     return citas
-  } //todo else
+  }
 }
 
 export const createAppointment = async (req: Request) => {
