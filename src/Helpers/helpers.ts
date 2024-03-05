@@ -51,9 +51,9 @@ export const isArrayEmpty = (array: any[]): boolean => {
   return Array.isArray(array) && array.length === 0
 }
 
-export const isBodyEmpty = (req: Request) => {
-  const bodyWithThings = req.body && Object.keys(req.body).length !== 0
-  if (!bodyWithThings) {
-    return "No data provided"
-  }
-}
+// export const isBodyEmpty = (req: Request) => {
+//   const bodyWithThings = req.body && Object.keys(req.body).length !== 0
+//   if (!bodyWithThings) {
+//     return "No data provided"
+//   }
+// }

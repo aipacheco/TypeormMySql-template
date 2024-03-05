@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isBodyEmpty, isValidLongText, validator } from "../../Helpers/helpers"
+import { isValidLongText, validator } from "../../Helpers/helpers"
 
 export const getServices = async (req: Request, res: Response) => {
   try {
@@ -20,15 +20,6 @@ export const getServices = async (req: Request, res: Response) => {
 }
 
 export const createService = async (req: Request, res: Response) => {
-  //si hay body y las keys vienen rellenas (no es un objeto vacío)
-  const body = isBodyEmpty(req.body)
-
-  if (body){
-    return res.status(400).json({
-      success: false,
-      message: body,
-    })
-  }
 
   const serviceName: string = req.body.serviceName
   const description: string = req.body.description
@@ -86,4 +77,5 @@ export const createService = async (req: Request, res: Response) => {
   }
 
 }
+
 export const updateService = (req: Request, res: Response) => {}

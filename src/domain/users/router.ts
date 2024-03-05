@@ -7,8 +7,9 @@ const userRouter = express.Router()
 
 // endpoints de usuario
 userRouter.get("/users", auth, isSuperAdmin, Controller.getUsers)
-userRouter.put("/users/profile", auth, Controller.updateProfile)
 userRouter.get("/users/profile", auth, Controller.userProfile)
+userRouter.put("/users/profile", auth, Controller.updateProfile)
+
 
 
 export default userRouter

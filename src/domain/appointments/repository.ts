@@ -49,7 +49,26 @@ export const createAppointment = async (req: Request) => {
     return error
   }
 }
-export const updateAppointment = async () => {}
+export const updateAppointment = async (req: Request) => {
+  console.log(req.body)
+
+  const user = await Users.findOneBy({ id: req.tokenData.userId })
+
+  if (user) {
+    const cita = await Appointments.findOne({
+      where: { id: parseInt(req.params.id) },
+      relations: ["service"],
+    })
+
+    if (cita) {
+      const nuevaCita = Appointments.update(
+        { id: parseInt(req.params.id) },
+        { appointment_date: req.body.appointment_date }
+      )
+      return nuevaCita
+    }
+  }
+}
 
 export const getSingleAppointment = async (req: Request) => {
   const user = await Users.findOneBy({ id: req.tokenData.userId })

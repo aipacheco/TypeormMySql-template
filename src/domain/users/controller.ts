@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isArrayEmpty, isBodyEmpty, isValidPassword, validator } from "../../Helpers/helpers"
+import { isArrayEmpty, isValidPassword, validator } from "../../Helpers/helpers"
 
 
 export const getUsers = async (req: Request, res: Response) => {
@@ -49,14 +49,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response) => {
 
-  const body = isBodyEmpty(req.body)
-
-  if (body){
-    return res.status(400).json({
-      success: false,
-      message: body,
-    })
-  }
     const firstName: string = req.body.first_name
     const lastName: string = req.body.last_name
     const password: string = req.body.password

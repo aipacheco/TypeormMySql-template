@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isArrayEmpty, isBodyEmpty } from "../../Helpers/helpers"
+import { isArrayEmpty } from "../../Helpers/helpers"
 
 export const getMyAppointments = async (req: Request, res: Response) => {
   try {
@@ -28,46 +28,38 @@ export const getMyAppointments = async (req: Request, res: Response) => {
 }
 
 export const createAppointment = async (req: Request, res: Response) => {
+  const dataAppointment = req.body.appointment_date
 
-  const body = isBodyEmpty(req.body)
-  
-  if (body){
+  console.log(dataAppointment)
+  // Validaciones
+
+  // Llamar a la función en el repositorio para crear la cita
+
+  const nuevaCita = await Repository.createAppointment(req)
+
+  if (!nuevaCita) {
     return res.status(400).json({
       success: false,
-      message: body,
+      message: "error al crear la cita",
+    })
+  } else {
+    return res.status(201).json({
+      success: true,
+      message: nuevaCita,
     })
   }
-    const dataAppointment = req.body.appointment_date
-
-    console.log(dataAppointment)
-    // Validaciones
-
-    // Llamar a la función en el repositorio para crear la cita
-
-    const nuevaCita = await Repository.createAppointment(req)
-
-    if (!nuevaCita) {
-      return res.status(400).json({
-        success: false,
-        message: "error al crear la cita",
-      })
-    } else {
-      return res.status(201).json({
-        success: true,
-        message: nuevaCita,
-      })
-    }
-  } 
-
+}
 
 export const updateAppointment = async (req: Request, res: Response) => {
-  console.log(req.body)
-
-
-
-
   try {
-    
+    const updateApp = await Repository.updateAppointment(req)
+
+    if (updateApp) {
+      return res.status(200).json({
+        success: true,
+        message: `Cita cambiada al día ${req.body.appointment_date}`
+      })
+    }
   } catch (error) {
     return res.status(400).json({
       success: false,

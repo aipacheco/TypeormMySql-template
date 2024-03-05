@@ -2,20 +2,9 @@ import { Request, Response } from "express"
 import * as Repository from "./repository"
 import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken"
-import { isBodyEmpty, isValidEmail, isValidPassword, validator } from "../../Helpers/helpers"
+import { isValidEmail, isValidPassword, validator } from "../../Helpers/helpers"
 
 export const register = async (req: Request, res: Response) => {
-  //si hay body y las keys vienen rellenas (no es un objeto vacío)
-
-
-  const body = isBodyEmpty(req.body)
-
-  if (body){
-    return res.status(400).json({
-      success: false,
-      message: body,
-    })
-  }
 
     const firstName: string = req.body.first_name
     const lastName: string = req.body.last_name
@@ -55,7 +44,6 @@ export const register = async (req: Request, res: Response) => {
         message: validEmail,
       })
     }
-
     //encriptación de password
     const passEncript: string = bcrypt.hashSync(password, 12)
 
@@ -69,8 +57,6 @@ export const register = async (req: Request, res: Response) => {
 
     try {
       const result = await Repository.register(NewUser)
-
-
 
       //si llega vacío es que se ha creado en repository, lo traemos para mandar el response
       if (!result) {
