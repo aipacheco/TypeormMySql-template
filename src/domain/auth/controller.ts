@@ -2,13 +2,20 @@ import { Request, Response } from "express"
 import * as Repository from "./repository"
 import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken"
-import { isValidEmail, isValidPassword, validator } from "../../Helpers/helpers"
+import { isBodyEmpty, isValidEmail, isValidPassword, validator } from "../../Helpers/helpers"
 
 export const register = async (req: Request, res: Response) => {
   //si hay body y las keys vienen rellenas (no es un objeto vacío)
 
 
-  if (req.body && Object.keys(req.body).length !== 0) {
+  const body = isBodyEmpty(req.body)
+
+  if (body){
+    return res.status(400).json({
+      success: false,
+      message: body,
+    })
+  }
 
     const firstName: string = req.body.first_name
     const lastName: string = req.body.last_name
@@ -87,16 +94,11 @@ export const register = async (req: Request, res: Response) => {
         message: "An error occurred while creating the user",
       })
     }
-  } else {
-    //si mandan un objeto vacío
-    res.status(400).json({
-      success: false,
-      message: "No data provided.",
-    })
-  }
-}
+  } 
+
 
 export const login = async (req: Request, res: Response) => {
+  
   const email = req.body.email
   const password = req.body.password
 

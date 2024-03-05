@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isArrayEmpty, isValidPassword, validator } from "../../Helpers/helpers"
+import { isArrayEmpty, isBodyEmpty, isValidPassword, validator } from "../../Helpers/helpers"
 
 
 export const getUsers = async (req: Request, res: Response) => {
@@ -48,8 +48,15 @@ export const getUsers = async (req: Request, res: Response) => {
 }
 
 export const updateProfile = async (req: Request, res: Response) => {
-  //si hay body y las keys vienen rellenas (no es un objeto vacío)
-  if (req.body && Object.keys(req.body).length !== 0) {
+
+  const body = isBodyEmpty(req.body)
+
+  if (body){
+    return res.status(400).json({
+      success: false,
+      message: body,
+    })
+  }
     const firstName: string = req.body.first_name
     const lastName: string = req.body.last_name
     const password: string = req.body.password
@@ -77,7 +84,6 @@ export const updateProfile = async (req: Request, res: Response) => {
         })
       }
     }
-
     // //si viene password, ya que cambiarlo también es opcional
     if (password) {
       const validPassword = isValidPassword(password)
@@ -105,13 +111,7 @@ export const updateProfile = async (req: Request, res: Response) => {
         message: "Error interno del servidor",
       })
     }
-  } else {
-    return res.status(500).json({
-      success: false,
-      message: "Data provided not valid",
-    })
   }
-}
 
 export const userProfile = async (req: Request, res: Response) => {
   try {

@@ -2,7 +2,6 @@ import { Request } from "express"
 import { Appointments } from "../../models/Appointments"
 import { Users } from "../../models/Users"
 import { Services } from "../../models/Services"
-import { TokenData } from "../../types/index"
 
 export const getMyAppointments = async (req: Request) => {
   const user = await Users.findOneBy({ id: req.tokenData.userId })
@@ -56,7 +55,10 @@ export const getSingleAppointment = async (req: Request) => {
   const user = await Users.findOneBy({ id: req.tokenData.userId })
 
   if (user) {
-    const cita = await Services.findOneBy({ id: parseInt(req.params.id) })
+    const cita = await Appointments.findOne({
+      where: { id: parseInt(req.params.id) },
+      relations: ["service"],
+    })
 
     return cita
   }

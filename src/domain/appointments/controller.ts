@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isArrayEmpty } from "../../Helpers/helpers"
+import { isArrayEmpty, isBodyEmpty } from "../../Helpers/helpers"
 
 export const getMyAppointments = async (req: Request, res: Response) => {
   try {
@@ -28,10 +28,16 @@ export const getMyAppointments = async (req: Request, res: Response) => {
 }
 
 export const createAppointment = async (req: Request, res: Response) => {
-  // Si hay un cuerpo en la solicitud y no es un objeto vacío
-  if (req.body && Object.keys(req.body).length !== 0) {
+
+  const body = isBodyEmpty(req.body)
+  
+  if (body){
+    return res.status(400).json({
+      success: false,
+      message: body,
+    })
+  }
     const dataAppointment = req.body.appointment_date
-    const serviceID = req.body.service_id
 
     console.log(dataAppointment)
     // Validaciones
@@ -51,41 +57,45 @@ export const createAppointment = async (req: Request, res: Response) => {
         message: nuevaCita,
       })
     }
-  } else {
-    // Si se manda un objeto vacío
-    res.status(400).json({
-      success: false,
-      message: "No data provided.",
-    })
-  }
-}
+  } 
 
-export const updateAppointment = async (req: Request, res: Response) => {}
 
-export const getSingleAppointment = async (req: Request, res: Response) => {
-  const appId = req.params.id
+export const updateAppointment = async (req: Request, res: Response) => {
+  console.log(req.body)
 
-  //Validaciones
-try {
-  
-  const getSingleApp = await Repository.getSingleAppointment(req)
 
-  // console.log(getSingleApp)
-  if (getSingleApp) {
-    return res.status(200).json({
-      success: true,
-      message: getSingleApp,
-    })
-  } else {
+
+
+  try {
+    
+  } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "no se encuentra la cita",
+      message: error,
     })
   }
-} catch (error) {
-  return res.status(400).json({
-    success: false,
-    message: error,
-  })
 }
+
+export const getSingleAppointment = async (req: Request, res: Response) => {
+  try {
+    const getSingleApp = await Repository.getSingleAppointment(req)
+
+    // console.log(getSingleApp)
+    if (getSingleApp) {
+      return res.status(200).json({
+        success: true,
+        message: getSingleApp,
+      })
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "no se encuentra la cita",
+      })
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error,
+    })
+  }
 }

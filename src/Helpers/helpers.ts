@@ -1,3 +1,5 @@
+import { Request } from "express"
+
 //la función recibe dos params, el valor que le pasemos y el campo para usarlo en el mensaje
 export const validator = (value: string, field: string) => {
   if (typeof value !== "string") {
@@ -47,4 +49,11 @@ export const isValidEmail = (email: string) => {
 //función para comprobar si un array llega lleno o vacío
 export const isArrayEmpty = (array: any[]): boolean => {
   return Array.isArray(array) && array.length === 0
+}
+
+export const isBodyEmpty = (req: Request) => {
+  const bodyWithThings = req.body && Object.keys(req.body).length !== 0
+  if (!bodyWithThings) {
+    return "No data provided"
+  }
 }
