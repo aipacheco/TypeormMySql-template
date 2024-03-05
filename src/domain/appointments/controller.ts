@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import * as Repository from "./repository"
-import { isArrayEmpty, isNumber } from "../../Helpers/helpers"
+import { isArrayEmpty } from "../../Helpers/helpers"
 
 export const getMyAppointments = async (req: Request, res: Response) => {
   try {
