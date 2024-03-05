@@ -1,30 +1,22 @@
+import  {  Router } from "express"
 import appointmentRouter from "./domain/appointments/router"
 import authRouter from "./domain/auth/router"
 import roleRouter from "./domain/roles/router"
 import serviceRouter from "./domain/services/router"
 import userRouter from "./domain/users/router"
-import express, { Application } from "express"
-
-export const app: Application = express()
-
-app.use(express.json()) //para convertir a json los datos recibidos
 
 
-app.get("/hello", (req, res) => {
-  res.status(200).json({ success: true, msg: "server is ok" })
-})
-
+const router = Router()
 //rutas de roles
-app.use("/api", roleRouter)
-
+router.use("/", roleRouter)
 //rutas de auth
-app.use("/api/auth", authRouter)
-
+router.use("/auth", authRouter)
 //rutas de user
-app.use("/api", userRouter)
-
+router.use("/", userRouter)
 //rutas de services
-app.use("/api", serviceRouter)
-
+router.use("/", serviceRouter)
 //rutas de appointments
-app.use("/api", appointmentRouter)
+router.use("/", appointmentRouter)
+
+
+export default router
