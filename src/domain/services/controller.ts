@@ -78,4 +78,3 @@ export const createService = async (req: Request, res: Response) => {
 
 }
 
-export const updateService = (req: Request, res: Response) => {}

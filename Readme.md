@@ -24,7 +24,7 @@ servicios que ofrece el estudio.
 
 ## Objetivo
 
-Este proyecto requería una API funcional conectada a una base de datos con cuatro tablas relacionales para Roles, Usuarios, Servicios y citas
+Este proyecto requería una API funcional conectada a una base de datos con cuatro tablas relacionales para Roles, Usuarios, Servicios y Citas
 
 ## Diagrama BD
 
@@ -63,7 +63,7 @@ Este proyecto requería una API funcional conectada a una base de datos con cuat
 
   - LOGIN
 
-          POST localhost:4000/api/auth/login
+          POST http://localhost:4000/api/auth/login
 
     body:
 
@@ -71,6 +71,130 @@ Este proyecto requería una API funcional conectada a una base de datos con cuat
         {
             "email": "example@gmail.com",
             "password": "princess"
+        }
+    ```
+
+- USERS
+
+  - GET
+
+            GET http://localhost:4000/api/users
+
+    El usuario tiene que ser super_admin para ver todos los usuarios
+
+  - GET BY EMAIL
+
+            GET http://localhost:4000/api/users?email=example@email.com
+
+    El usuario tiene que ser super_admin para ver todos los usuarios y la búsqueda le devolverá el usuario por email
+
+    ```js
+        {
+            "success": true,
+            "message": "User by email",
+            "data": [
+    	    {
+    		"id": 35,
+    		"first_name": "Ralph",
+    		"last_name": "Marquardt",
+    		"email": "admin@admin.com"
+    	    }
+            ]
+        }
+    ```
+  - GET PROFILE
+
+        GET http://localhost:4000/api/users/profile
+
+    El usuario podrá ver su propio perfil
+    
+     ```js
+        {
+            "success": true,
+	        "message": "Your profile",
+	        "data": {
+		        "id": 35,
+		        "first_name": "Ralph",
+		        "last_name": "Marquardt",
+		        "email": "admin@admin.com"
+	}
+        }
+    ```
+  - UPDATE PROFILE
+
+        PUT http://localhost:4000/api/users/profile
+
+    El usuario podrá modificar su propio perfil, cambiando los campos que considere necesario (excepto el email)
+    
+     ```js
+        {
+        "first_name":"example",
+        "last_name": "example",
+        "password": "123456789"
+        }
+    ```
+- SERVICES
+
+  - GET
+
+            GET http://localhost:4000/api/services
+
+    
+
+  - POST SERVICES
+
+            POST http://localhost:4000/api/services
+
+    El usuario tiene que ser super_admin para crear servicios del estudio
+
+    body:
+    ```js
+        {
+        "serviceName": "Blackout",
+        "description": "Servicio de tatuaje en negro sobre tatuaje existente"
+        }
+    ```
+- APPOINTMENTS
+
+  - GET MY APPOINTMENTS
+
+            GET http://localhost:4000/api/auth//appointments
+
+    El usuario puede ver todas las citas que tiene creadas
+
+
+  - GET SINGLE APPOINTMENT
+
+          GET http://localhost:4000/api/auth//appointments/id
+
+    El usuario puede ver una cita en concreto
+
+  - CREATE APPOINTMENT
+
+          POST http://localhost:4000/api/auth//appointments
+
+    El usuario puede crear una cita en una fecha y para un servicio concreto
+
+    body:
+
+    ```js
+        {
+        "appointment_date": "2024-03-24 09:00:00",
+	    "service_id ": 1
+        }
+    ```
+
+  - UPDATE SINGLE APPOINTMENT
+
+          PUT http://localhost:4000/api/auth//appointments/id
+
+    El usuario puede modificar la fecha de una de sus citas
+
+    body:
+
+    ```js
+        {
+        "appointment_date": "2024-03-25 10:00:00"
         }
     ```
 
