@@ -1,21 +1,16 @@
-import express, { Application } from "express"
 import dotenv from "dotenv"
 dotenv.config()
+
 import { AppDataSource } from "./models/db"
-
-
-
-export const app: Application = express()
+import { app } from "./app"
 
 const PORT = process.env.PORT || 4001
 
-
 AppDataSource.initialize()
-  .then(()=>{
-    console.log("daatabase conected")
+  .then(() => {
+    console.log("database conected")
     app.listen(PORT, () => console.log(`server is running on port ${PORT}`))
-    
   })
-  .catch(error=>console.log(error))
+  .catch((error) => console.log(error))
 
-
+  
