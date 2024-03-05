@@ -59,3 +59,11 @@ export const createAppointment = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const updateAppointment = async(req: Request, res: Response) =>{
+
+}
+
+export const getSingleAppointments = async(req: Request, res: Response) =>{
+
+}

@@ -49,3 +49,10 @@ export const createAppointment = async (req: Request) => {
     return error
   }
 }
+export const updateAppointment = async() =>{
+
+}
+
+export const getSingleAppointments = async() =>{
+
+}
