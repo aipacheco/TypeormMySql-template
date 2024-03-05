@@ -4,6 +4,7 @@ import { Users } from "../Users"
 import { Services } from "../Services"
 import { AppDataSource } from "../db"
 import bcrypt from "bcrypt"
+import { Appointments } from "../Appointments"
 
 // Función para generar usuarios falsos con Faker
 const generateFakeUser = () => {
@@ -33,6 +34,25 @@ const generateFakeSuperAdmin = () => {
   user.password = bcrypt.hashSync("123456789", 12)
   user.roleId = 3
   return user
+}
+
+const generateFakeAppointments =  () => {
+  const serviceId = faker.number.int({ min: 1, max: 6 })
+  const userId = faker.number.int({ min: 1, max: 10 })
+
+  const appointment = new Appointments()
+  appointment.appointment_date = faker.date.future()
+
+  const service = new Services
+  service.id = serviceId
+
+  const user = new Users
+  user.id = userId
+
+  appointment.user =  user 
+  appointment.service = service 
+
+  return appointment
 }
 
 interface ServiceInterface {
@@ -109,8 +129,13 @@ const seedDatabase = async () => {
       await Services.save(service)
     }
 
+    const fakeAppointments = Array.from(
+      { length: 50 },
+      generateFakeAppointments
+    )
+    await Appointments.save(fakeAppointments)
+
     console.log("TODO OK EN SEEDER")
-    
   } catch (error) {
     console.log(error)
   } finally {
