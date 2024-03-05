@@ -6,10 +6,11 @@ import { auth } from "../../middlewheres/auth"
 const appointmentRouter = express.Router()
 
 // endpoints de citas
+appointmentRouter.get("/appointments/:id", auth, Controller.getSingleAppointment)
 appointmentRouter.get("/appointments", auth, Controller.getMyAppointments)
 appointmentRouter.post("/appointments", auth, Controller.createAppointment)
-appointmentRouter.put("/appointments:id", auth, Controller.updateAppointment)
-appointmentRouter.get("/appointments", auth, Controller.getSingleAppointments)
+appointmentRouter.put("/appointments/:id", auth, Controller.updateAppointment)
+
 
 
 

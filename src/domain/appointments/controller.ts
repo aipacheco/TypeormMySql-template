@@ -35,7 +35,7 @@ export const createAppointment = async (req: Request, res: Response) => {
 
     console.log(dataAppointment)
     // Validaciones
-  
+
     // Llamar a la función en el repositorio para crear la cita
 
     const nuevaCita = await Repository.createAppointment(req)
@@ -60,10 +60,32 @@ export const createAppointment = async (req: Request, res: Response) => {
   }
 }
 
-export const updateAppointment = async(req: Request, res: Response) =>{
+export const updateAppointment = async (req: Request, res: Response) => {}
 
+export const getSingleAppointment = async (req: Request, res: Response) => {
+  const appId = req.params.id
+
+  //Validaciones
+try {
+  
+  const getSingleApp = await Repository.getSingleAppointment(req)
+
+  // console.log(getSingleApp)
+  if (getSingleApp) {
+    return res.status(200).json({
+      success: true,
+      message: getSingleApp,
+    })
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: "no se encuentra la cita",
+    })
+  }
+} catch (error) {
+  return res.status(400).json({
+    success: false,
+    message: error,
+  })
 }
-
-export const getSingleAppointments = async(req: Request, res: Response) =>{
-
 }

@@ -2,6 +2,7 @@ import { Request } from "express"
 import { Appointments } from "../../models/Appointments"
 import { Users } from "../../models/Users"
 import { Services } from "../../models/Services"
+import { TokenData } from "../../types/index"
 
 export const getMyAppointments = async (req: Request) => {
   const user = await Users.findOneBy({ id: req.tokenData.userId })
@@ -49,10 +50,14 @@ export const createAppointment = async (req: Request) => {
     return error
   }
 }
-export const updateAppointment = async() =>{
+export const updateAppointment = async () => {}
 
-}
+export const getSingleAppointment = async (req: Request) => {
+  const user = await Users.findOneBy({ id: req.tokenData.userId })
 
-export const getSingleAppointments = async() =>{
+  if (user) {
+    const cita = await Services.findOneBy({ id: parseInt(req.params.id) })
 
+    return cita
+  }
 }
