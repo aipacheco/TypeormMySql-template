@@ -3,11 +3,12 @@ import authRouter from "./domain/auth/router"
 import roleRouter from "./domain/roles/router"
 import serviceRouter from "./domain/services/router"
 import userRouter from "./domain/users/router"
-import express, { Application } from 'express';
+import express, { Application } from "express"
 
 export const app: Application = express()
 
 app.use(express.json()) //para convertir a json los datos recibidos
+
 
 app.get("/hello", (req, res) => {
   res.status(200).json({ success: true, msg: "server is ok" })

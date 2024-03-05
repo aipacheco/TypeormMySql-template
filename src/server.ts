@@ -4,7 +4,6 @@ dotenv.config()
 import { AppDataSource } from "./models/db"
 import { app } from "./router"
 
-
 const PORT = process.env.PORT || 4001
 
 AppDataSource.initialize()
