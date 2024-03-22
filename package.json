@@ -6,10 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/server.ts",
-    "tirale": "typeorm migration:create ./src/models/migrations/",
     "migrations": "typeorm-ts-node-commonjs migration:run -d ./src/models/db.ts",
     "revert-migrations": "typeorm-ts-node-commonjs migration:revert -d ./src/models/db.ts",
-    "candela": "typeorm entity:create ./src/models/",
     "seeder": "ts-node ./src/models/seeders/seeders.ts",
     "build": "tsc",
     "start":"node ./dist/server.js"
