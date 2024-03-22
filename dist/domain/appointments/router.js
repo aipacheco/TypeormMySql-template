@@ -28,7 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Controller = __importStar(require("./controller"));
-const auth_1 = require("../../middlewheres/auth");
+const auth_1 = require("../../middlewares/auth");
 const appointmentRouter = express_1.default.Router();
 // endpoints de citas
 appointmentRouter.get("/appointments/:id", auth_1.auth, Controller.getSingleAppointment);
