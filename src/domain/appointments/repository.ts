@@ -7,6 +7,8 @@ export const getMyAppointments = async (req: Request) => {
   const user = await Users.findOneBy({ id: req.tokenData.userId })
   if (user) {
     const citas = await Appointments.find({
+      where: {
+        user: { id: user.id }},
       relations: {
         user: true,
         service: true,

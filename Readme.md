@@ -160,20 +160,20 @@ Este proyecto requería una API funcional conectada a una base de datos con cuat
 
   - GET MY APPOINTMENTS
 
-            GET http://localhost:4000/api/auth//appointments
+            GET http://localhost:4000/api/appointments
 
     El usuario puede ver todas las citas que tiene creadas
 
 
   - GET SINGLE APPOINTMENT
 
-          GET http://localhost:4000/api/auth//appointments/id
+          GET http://localhost:4000/api/appointments/id
 
     El usuario puede ver una cita en concreto
 
   - CREATE APPOINTMENT
 
-          POST http://localhost:4000/api/auth//appointments
+          POST http://localhost:4000/api/appointments
 
     El usuario puede crear una cita en una fecha y para un servicio concreto
 
@@ -188,7 +188,7 @@ Este proyecto requería una API funcional conectada a una base de datos con cuat
 
   - UPDATE SINGLE APPOINTMENT
 
-          PUT http://localhost:4000/api/auth//appointments/id
+          PUT http://localhost:4000/api/appointments/id
 
     El usuario puede modificar la fecha de una de sus citas
 
