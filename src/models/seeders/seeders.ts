@@ -19,6 +19,7 @@ const generateFakeUser = () => {
 }
 const generateFakeAdmin = () => {
   const user = new Users()
+  user.id = 1
   user.first_name = faker.person.firstName()
   user.last_name = faker.person.lastName()
   user.email = "admin@admin.com"
@@ -30,6 +31,7 @@ const generateFakeAdmin = () => {
 
 const generateFakeSuperAdmin = () => {
   const user = new Users()
+  user.id = 2
   user.first_name = faker.person.firstName()
   user.last_name = faker.person.lastName()
   user.email = "superdmin@superadmin.com"
@@ -123,14 +125,14 @@ const seedDatabase = async () => {
     roleSuperAdmin.id = 3
     await roleSuperAdmin.save()
 
-    const fakeUsers = Array.from({ length: 10 }, generateFakeUser)
-    await Users.save(fakeUsers)
-
     const fakeAdmin = generateFakeAdmin()
     await Users.save(fakeAdmin)
 
     const fakeSuperAdmin = generateFakeSuperAdmin()
     await Users.save(fakeSuperAdmin)
+
+    const fakeUsers = Array.from({ length: 10 }, generateFakeUser)
+    await Users.save(fakeUsers)
 
     //mapeo para meter los servicios en la tabla Services
     for (const serviceItem of services) {
