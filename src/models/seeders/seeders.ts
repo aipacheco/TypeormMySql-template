@@ -137,6 +137,7 @@ const seedDatabase = async () => {
       let service = new Services()
       service.serviceName = serviceItem.serviceName
       service.description = serviceItem.description
+      service.image = serviceItem.image
       await Services.save(service)
     }
 
