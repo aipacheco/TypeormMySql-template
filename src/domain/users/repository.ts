@@ -9,6 +9,7 @@ export const getUsers = async () => {
       first_name: true,
       last_name: true,
       email: true,
+      avatar:true
     },
   })
   return users
@@ -36,7 +37,7 @@ export const updateProfile = async (req: Request) => {
 export const userProfile = async (req: Request) => {
   const user = await Users.findOne({
     where: { id: req.tokenData.userId },
-    select: ["id", "first_name", "last_name", "email"],
+    select: ["id", "first_name", "last_name", "email", "avatar"],
   })
   return user
 }
@@ -51,6 +52,7 @@ export const getUserByEmail = async (email: string) => {
       first_name: true,
       last_name: true,
       email: true,
+      avatar:true
     },
   })
   return user

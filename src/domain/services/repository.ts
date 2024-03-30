@@ -6,6 +6,7 @@ export const getServices = async () => {
       id: true,
       serviceName: true,
       description: true,
+      image:true
     },
   })
   return services
