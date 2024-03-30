@@ -26,6 +26,9 @@ export class Users extends BaseEntity {
 
   @Column({ name: "email" })
   email!: string
+  
+  @Column({ name: "avatar" })
+  avatar!: string
 
   @Column({ name: "role_id" })
   roleId!: number;
