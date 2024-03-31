@@ -14,7 +14,7 @@ export class Appointments extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ name: "appointment_date", type: "date" })
+  @Column({ name: "appointment_date", type: "timestamp" })
   appointment_date!: Date
 
 

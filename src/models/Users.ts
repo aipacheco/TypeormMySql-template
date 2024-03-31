@@ -30,6 +30,9 @@ export class Users extends BaseEntity {
   @Column({ name: "avatar" })
   avatar!: string
 
+  @Column({ name: "isActive" })
+  isActive!: boolean
+  
   @Column({ name: "role_id" })
   roleId!: number;
 

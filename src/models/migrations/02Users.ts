@@ -45,6 +45,11 @@ export class Users1708952337364 implements MigrationInterface {
             default: "'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png'",
           },
           {
+            name: "isActive",
+            type: "boolean",
+            default: true,
+          },
+          {
             name: "role_id",
             type: "int",
             default: 1,

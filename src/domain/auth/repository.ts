@@ -22,6 +22,7 @@ export const findByEmail = async (email: string) => {
       id: true,
       password: true,
       email: true,
+      isActive:true,
       role_id: {
         id: true,
         name: true,
