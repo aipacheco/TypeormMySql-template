@@ -92,8 +92,9 @@ export const deleteAppointment = async (req: Request, appointmentId: any) => {
     const cita = await Appointments.findOne({
       where: { id: parseInt(appointmentId), user: { id: user.id } },
     })
-
-    console.log(cita)
+    if (cita) {
+      await Appointments.remove(cita)
+    }
     return cita
   }
 }

@@ -93,7 +93,7 @@ export const getSingleAppointment = async (req: Request, res: Response) => {
 }
 
 export const deleteAppointment = async (req: Request, res: Response) => {
-  console.log(req.params.id)
+
   try {
     const appointmentId = req.params.id
     const result = await Repository.deleteAppointment(req, appointmentId)
