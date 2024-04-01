@@ -9,6 +9,7 @@ const userRouter = express.Router()
 userRouter.get("/users", auth, isSuperAdmin, Controller.getUsers)
 userRouter.get("/users/profile", auth, Controller.userProfile)
 userRouter.put("/users/profile", auth, Controller.updateProfile)
+userRouter.put("/users/:id", auth, isSuperAdmin,  Controller.InactiveUser)
 
 
 

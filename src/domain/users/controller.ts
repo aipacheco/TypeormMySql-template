@@ -20,7 +20,7 @@ export const getUsers = async (req: Request, res: Response) => {
       } else {
         return res.status(404).json({
           success: true,
-          message: "User not found",
+          message: "User no encontrado",
         })
       }
     } catch (error) {
@@ -35,7 +35,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
       return res.status(200).json({
         success: true,
-        message: "Users in DB",
+        message: "Todos los usuarios",
         data: resultado,
       })
     } catch (error) {
@@ -93,7 +93,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       if (resultado) {
         return res.status(201).json({
           success: true,
-          message: "Profile updated",
+          message: "Perfil editado",
         })
       }
     } catch (error) {
@@ -120,4 +120,26 @@ export const userProfile = async (req: Request, res: Response) => {
       message: "Error interno del servidor",
     })
   }
+}
+
+export const InactiveUser = async(req: Request, res: Response)=>{
+const userId = req.params.id
+
+try {
+
+  let resultado = await Repository.InactiveUser(userId)
+
+  if (resultado) {
+    return res.status(201).json({
+      success: true,
+      message: "Usuario inactivo",
+    })
+  }
+} catch (error) {
+  console.log(error)
+  return res.status(500).json({
+    success: false,
+    message: "Error interno del servidor",
+  })
+}
 }

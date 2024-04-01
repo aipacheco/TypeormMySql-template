@@ -9,7 +9,7 @@ export const getUsers = async () => {
       first_name: true,
       last_name: true,
       email: true,
-      avatar:true
+      isActive:true
     },
   })
   return users
@@ -56,4 +56,19 @@ export const getUserByEmail = async (email: string) => {
     },
   })
   return user
+}
+
+export const InactiveUser = async (userId:any)=>{
+  const user = await Users.findOneBy({ id: userId })
+  if (user) {
+    const userUpdate = Users.update(
+      {
+        id: userId,
+      },
+      {
+       isActive: false
+      }
+    )
+    return userUpdate
+  }
 }
