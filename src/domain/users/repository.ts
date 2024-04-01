@@ -27,7 +27,7 @@ export const updateProfile = async (req: Request) => {
         last_name: req.body.last_name,
         /* email: req.body.email no quiero que se pueda cambiar por el usuario
         ya que es un dato único y puede coincidir con otro que tengamos*/
-        password: bcrypt.hashSync(req.body.password, 12),
+        // password: bcrypt.hashSync(req.body.password, 12),
       }
     )
     return userUpdate
