@@ -57,7 +57,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
     if (updateApp) {
       return res.status(200).json({
         success: true,
-        message: `Cita cambiada al día ${req.body.appointment_date}`
+        message: `Cita cambiada al día ${req.body.appointment_date}`,
       })
     }
   } catch (error) {
@@ -88,6 +88,32 @@ export const getSingleAppointment = async (req: Request, res: Response) => {
     return res.status(400).json({
       success: false,
       message: error,
+    })
+  }
+}
+
+export const deleteAppointment = async (req: Request, res: Response) => {
+  console.log(req.params.id)
+  try {
+    const appointmentId = req.params.id
+    const result = await Repository.deleteAppointment(req, appointmentId)
+
+    if (result) {
+      return res.status(200).json({
+        success: true,
+        message: "Cita eliminada con éxito",
+      })
+    } else {
+      // si no se encuentra la cita para eliminar, enviar una respuesta de error
+      return res.status(404).json({
+        success: false,
+        message: "Cita no encontrada",
+      })
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error del servidor",
     })
   }
 }

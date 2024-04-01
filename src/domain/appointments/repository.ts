@@ -8,7 +8,8 @@ export const getMyAppointments = async (req: Request) => {
   if (user) {
     const citas = await Appointments.find({
       where: {
-        user: { id: user.id }},
+        user: { id: user.id },
+      },
       relations: {
         user: true,
         service: true,
@@ -81,6 +82,18 @@ export const getSingleAppointment = async (req: Request) => {
       relations: ["service"],
     })
 
+    return cita
+  }
+}
+
+export const deleteAppointment = async (req: Request, appointmentId: any) => {
+  const user = await Users.findOneBy({ id: req.tokenData.userId })
+  if (user) {
+    const cita = await Appointments.findOne({
+      where: { id: parseInt(appointmentId), user: { id: user.id } },
+    })
+
+    console.log(cita)
     return cita
   }
 }
