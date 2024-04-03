@@ -34,7 +34,7 @@ const generateFakeSuperAdmin = () => {
   user.id = 2
   user.first_name = faker.person.firstName()
   user.last_name = faker.person.lastName()
-  user.email = "superdmin@superadmin.com"
+  user.email = "superadmin@superadmin.com"
   user.password = bcrypt.hashSync("123456789", 12)
   user.avatar = faker.image.avatar()
   user.roleId = 3
