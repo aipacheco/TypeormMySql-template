@@ -10,7 +10,8 @@
     "revert-migrations": "typeorm-ts-node-commonjs migration:revert -d ./src/models/db.ts",
     "seeder": "ts-node ./src/models/seeders/seeders.ts",
     "build": "tsc",
-    "start": "node ./dist/server.js"
+    "start": "node ./dist/server.js",
+    "poststart": "npm run migrations && npm start"
   },
   "author": "",
   "license": "ISC",

@@ -4,11 +4,9 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm"
 import { Roles } from "./Roles"
-import { Appointments } from "./Appointments"
 
 @Entity("users")
 export class Users extends BaseEntity {
@@ -21,25 +19,22 @@ export class Users extends BaseEntity {
   @Column({ name: "last_name" })
   last_name!: string
 
-  @Column({ name: "password", select:false})
+  @Column({ name: "password", select: false })
   password!: string
 
   @Column({ name: "email" })
   email!: string
-  
+
   @Column({ name: "avatar" })
   avatar!: string
 
   @Column({ name: "isActive" })
   isActive!: boolean
-  
+
   @Column({ name: "role_id" })
-  roleId!: number;
+  roleId!: number
 
   @ManyToOne(() => Roles, (role) => role.users)
-  @JoinColumn({ name: 'role_id' })
-  role_id!: Roles;
-
-  @OneToMany(() => Appointments, (appointment) => appointment.user)
-  appointments!: Appointments[]
+  @JoinColumn({ name: "role_id" })
+  role_id!: Roles
 }
